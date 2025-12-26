@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, User, BrainCircuit, Sparkles, Loader2, Plus, MessageSquare, History, ChevronRight, Layers, Layout, Zap, Info } from 'lucide-react';
-import { gemini } from '../services/geminiService';
-import { ChatMessage, User as UserType } from '../types';
-import { storage } from '../services/storageService';
+import { gemini } from '../services/geminiService.ts';
+import { ChatMessage, User as UserType } from '../types.ts';
+import { storage } from '../services/storageService.ts';
 
 interface TutorChatProps {
   activeUser: UserType;

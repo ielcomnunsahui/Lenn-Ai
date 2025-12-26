@@ -1,11 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 import { 
   BookOpen, FileText, Layout, Zap, Target, Download, Loader2, Plus, X, Search, CheckCircle2, 
   Clock, Sparkles, ChevronRight, ClipboardList, GraduationCap, Map, BrainCircuit
 } from 'lucide-react';
-import { gemini } from '../services/geminiService';
-import { LecturerNotes, LessonPlan, QuestionBank } from '../types';
+import { gemini } from '../services/geminiService.ts';
+import { LecturerNotes, LessonPlan, QuestionBank } from '../types.ts';
 
 const LecturerHub: React.FC = () => {
   const [topic, setTopic] = useState('');

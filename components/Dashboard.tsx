@@ -4,7 +4,7 @@ import {
   AreaChart, Area
 } from 'recharts';
 import { Award, Clock, BookOpen, Target, ChevronRight, TrendingUp, Users, Presentation, FileCheck } from 'lucide-react';
-import { User } from '../types';
+import { User } from '../types.ts';
 
 interface DashboardProps {
   user: User;

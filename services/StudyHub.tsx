@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { Material, Topic, Question, User } from '../types';
+import { Material, Topic, Question, User } from '../types.ts';
 import { 
   Play, 
   Layers, 
@@ -19,8 +18,8 @@ import {
   XCircle,
   MessageSquareText
 } from 'lucide-react';
-import { gemini } from '../services/geminiService';
-import TutorChat from './TutorChat';
+import { gemini } from './geminiService.ts';
+import TutorChat from '../components/TutorChat.tsx';
 
 interface StudyHubProps {
   materials: Material[];
@@ -170,7 +169,7 @@ const StudyHub: React.FC<StudyHubProps> = ({ materials, user }) => {
             <div className="flex-1 p-10 overflow-y-auto max-h-[650px] custom-scrollbar">
               {activeTab === 'tutor' && (
                 <div className="h-full animate-fadeIn">
-                  <TutorChat currentMaterial={selectedMaterial || undefined} activeUser={user} />
+                  <TutorChat activeUser={user} />
                 </div>
               )}
 

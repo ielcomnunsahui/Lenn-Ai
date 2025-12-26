@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { Search, Loader2, FileText, Send, Sparkles, AlertCircle } from 'lucide-react';
-import { gemini } from '../services/geminiService';
+import { gemini } from '../services/geminiService.ts';
 
 const ExamGuide: React.FC = () => {
   const [topic, setTopic] = useState('');

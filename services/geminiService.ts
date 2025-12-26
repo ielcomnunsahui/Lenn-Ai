@@ -1,6 +1,5 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
-import { SubjectArea, Question, LecturerNotes, LessonPlan, QuestionBank } from "../types";
+import { SubjectArea, Question, LecturerNotes, LessonPlan, QuestionBank } from "../types.ts";
 
 export class GeminiService {
   private get ai(): GoogleGenAI {

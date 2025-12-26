@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { Gamepad2, Layers, Map, Trophy, Flame, ChevronRight, Loader2, Star, Target, Users, Key } from 'lucide-react';
-import { gemini } from '../services/geminiService';
-import { SubjectArea, User } from '../types';
-import BuildThePath from './games/BuildThePath';
-import LabelIt from './games/LabelIt';
+import { gemini } from '../services/geminiService.ts';
+import { SubjectArea, User } from '../types.ts';
+import BuildThePath from './games/BuildThePath.tsx';
+import LabelIt from './games/LabelIt.tsx';
 
 interface GamesHubProps {
   user?: User;

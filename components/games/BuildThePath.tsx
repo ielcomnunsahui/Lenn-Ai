@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, CheckCircle2, XCircle, RefreshCw, Layers } from 'lucide-react';
-import { PathStep } from '../../types';
+import { PathStep } from '../../types.ts';
 
 interface BuildThePathProps {
   data: { title: string; steps: PathStep[] };

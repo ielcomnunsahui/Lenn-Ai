@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { 
   Upload, 
@@ -15,7 +14,7 @@ import {
   Layers,
   RefreshCcw
 } from 'lucide-react';
-import { gemini } from '../services/geminiService';
+import { gemini } from '../services/geminiService.ts';
 
 const MaterialLab: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<{ file: File, preview?: string } | null>(null);

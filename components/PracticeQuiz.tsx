@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
-import { Question, Material } from '../types';
-import { gemini } from '../services/geminiService';
+import { Question, Material } from '../types.ts';
+import { gemini } from '../services/geminiService.ts';
 import { 
   CheckCircle2, 
   XCircle, 
