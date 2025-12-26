@@ -1,0 +1,8 @@
+{
+  "name": "Lenn-AI",
+  "description": "An AI-powered learning ecosystem for nursing students featuring real-time visual learning, automated pathophysiology animations, and adaptive medical assessments.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
