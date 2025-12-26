@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { ArrowLeft, CheckCircle2, XCircle, HelpCircle, Loader2 } from 'lucide-react';
-import { LabeledPart } from '../../types';
+import { LabeledPart } from '../types';
 
 interface LabelItProps {
   data: { title: string; imageUrl: string; parts: LabeledPart[] };

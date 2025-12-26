@@ -1,5 +1,5 @@
-import { User, StoredChat, ChatMessage } from '../types';
-import { supabase } from './supabaseClient';
+import { User, ChatMessage } from '../types.ts';
+import { supabase } from './supabaseClient.ts';
 
 class StorageService {
   // Authentication
@@ -24,7 +24,6 @@ class StorageService {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) return { success: false, error: error.message };
 
-    // Fetch profile from public schema
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select('*')

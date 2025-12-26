@@ -1,17 +1,15 @@
-
 import React, { useState, useEffect } from 'react';
-import Sidebar from './components/Sidebar';
-import Dashboard from './components/Dashboard';
-import PracticeQuiz from './components/PracticeQuiz';
-import ExamGuide from './components/ExamGuide';
-import GamesHub from './components/GamesHub';
-import Auth from './components/Auth';
-import TutorChat from './components/TutorChat';
-import MaterialLab from './components/MaterialLab';
-import LecturerHub from './components/LecturerHub';
-import { User } from './types';
-import { storage } from './services/storageService';
-import { LogOut } from 'lucide-react';
+import Sidebar from './components/Sidebar.tsx';
+import Dashboard from './components/Dashboard.tsx';
+import PracticeQuiz from './components/PracticeQuiz.tsx';
+import ExamGuide from './components/ExamGuide.tsx';
+import GamesHub from './components/GamesHub.tsx';
+import Auth from './components/Auth.tsx';
+import TutorChat from './components/TutorChat.tsx';
+import MaterialLab from './components/MaterialLab.tsx';
+import LecturerHub from './components/LecturerHub.tsx';
+import { User } from './types.ts';
+import { storage } from './services/storageService.ts';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -20,11 +18,16 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const initSession = async () => {
-      const activeUser = await storage.getActiveUser();
-      if (activeUser) {
-        setUser(activeUser);
+      try {
+        const activeUser = await storage.getActiveUser();
+        if (activeUser) {
+          setUser(activeUser);
+        }
+      } catch (err) {
+        console.error("Initialization failed:", err);
+      } finally {
+        setIsInitialized(true);
       }
-      setIsInitialized(true);
     };
     initSession();
   }, []);
@@ -36,12 +39,25 @@ const App: React.FC = () => {
   };
 
   const handleLogout = async () => {
-    await storage.logout();
+    try {
+      await storage.logout();
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
     setUser(null);
     setActiveTab('dashboard');
   };
 
-  if (!isInitialized) return null;
+  if (!isInitialized) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-[#020617] text-white">
+        <div className="animate-pulse flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Initializing Lennai Protocol...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!user) {
     return <Auth onLogin={handleLogin} />;
