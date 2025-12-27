@@ -15,6 +15,10 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [user, setUser] = useState<User | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('lennai-theme');
+    return saved ? saved === 'dark' : true;
+  });
 
   useEffect(() => {
     const initSession = async () => {
@@ -31,6 +35,18 @@ const App: React.FC = () => {
     };
     initSession();
   }, []);
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('lennai-theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('lennai-theme', 'light');
+    }
+  }, [isDarkMode]);
+
+  const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
   const handleLogin = (newUser: User) => {
     setUser(newUser);
@@ -53,7 +69,7 @@ const App: React.FC = () => {
       <div className="flex items-center justify-center min-h-screen bg-[#020617] text-white">
         <div className="animate-pulse flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Initializing Lennai Protocol...</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Initializing Protocol...</p>
         </div>
       </div>
     );
@@ -77,8 +93,15 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#020617] text-slate-100 overflow-hidden">
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} onLogout={handleLogout} user={user} />
+    <div className="flex min-h-screen transition-colors duration-300">
+      <Sidebar 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab} 
+        onLogout={handleLogout} 
+        user={user} 
+        isDarkMode={isDarkMode}
+        toggleTheme={toggleTheme}
+      />
       <main className="flex-1 lg:ml-64 min-h-screen relative overflow-y-auto">
         {renderContent()}
       </main>

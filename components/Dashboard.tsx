@@ -1,6 +1,6 @@
 import React from 'react';
 import { 
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   AreaChart, Area
 } from 'recharts';
 import { Award, Clock, BookOpen, Target, ChevronRight, TrendingUp, Users, Presentation, FileCheck } from 'lucide-react';
@@ -56,20 +56,20 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
     <div className="p-8 max-w-7xl mx-auto animate-fadeIn">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
         <div>
-          <h2 className="text-4xl font-bold text-white mb-2">Welcome back, {user.fullName.split(' ')[0]}</h2>
+          <h2 className="text-4xl font-bold dark:text-white text-slate-900 mb-2">Welcome back, {user.fullName.split(' ')[0]}</h2>
           <div className="flex flex-wrap gap-2 mb-4">
-            <span className="text-[10px] bg-blue-500/10 border border-blue-500/20 text-blue-400 px-3 py-1 rounded-full font-black uppercase tracking-widest">{user.school}</span>
-            <span className={`text-[10px] border px-3 py-1 rounded-full font-black uppercase tracking-widest ${isLecturer ? 'bg-purple-500/10 border-purple-500/20 text-purple-400' : 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'}`}>
+            <span className="text-[10px] bg-blue-500/10 border border-blue-500/20 text-blue-500 px-3 py-1 rounded-full font-black uppercase tracking-widest">{user.school}</span>
+            <span className={`text-[10px] border px-3 py-1 rounded-full font-black uppercase tracking-widest ${isLecturer ? 'bg-purple-500/10 border-purple-500/20 text-purple-600' : 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600'}`}>
               {isLecturer ? `HOD ${user.course || 'Medical Science'}` : user.course}
             </span>
           </div>
-          <p className="text-slate-500 text-lg font-medium italic">
+          <p className="dark:text-slate-400 text-slate-600 text-lg font-medium italic">
             {isLecturer ? "Architecting the future of healthcare, one lecture at a time." : "I know say you no sabi book but I go help you 😂"}
           </p>
           {!isLecturer && (
-            <p className="text-slate-600 text-xs mt-3 flex items-center gap-2">
+            <p className="dark:text-slate-500 text-slate-500 text-xs mt-3 flex items-center gap-2">
               <TrendingUp size={14} className="text-emerald-500" />
-              Your diagnostic accuracy improved by <span className="text-emerald-400 font-bold">12%</span> this week.
+              Your diagnostic accuracy improved by <span className="text-emerald-500 font-bold">12%</span> this week.
             </p>
           )}
         </div>
@@ -80,19 +80,19 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         {stats.map((stat, i) => (
-          <div key={i} className="glass-dark p-6 rounded-3xl border border-slate-800/50 hover:border-slate-700 transition duration-300">
-            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 bg-slate-800 ${isLecturer ? 'text-purple-400' : 'text-blue-400'}`}>
+          <div key={i} className="glass-dark p-6 rounded-3xl group cursor-default">
+            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 dark:bg-slate-800 bg-slate-100 ${isLecturer ? 'text-purple-500' : 'text-blue-500'}`}>
               <stat.icon size={24} />
             </div>
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">{stat.label}</p>
-            <h3 className="text-3xl font-bold text-white">{stat.value}</h3>
+            <p className="text-xs font-bold dark:text-slate-500 text-slate-400 uppercase tracking-widest mb-1">{stat.label}</p>
+            <h3 className="text-3xl font-bold dark:text-white text-slate-900">{stat.value}</h3>
           </div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 glass-dark p-8 rounded-3xl border border-slate-800/50">
-          <h3 className="text-xl font-bold mb-8 text-white">{isLecturer ? "Departmental Output History" : "Quiz Performance History"}</h3>
+        <div className="lg:col-span-2 glass-dark p-8 rounded-3xl">
+          <h3 className="text-xl font-bold mb-8 dark:text-white text-slate-900">{isLecturer ? "Departmental Output History" : "Quiz Performance History"}</h3>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={isLecturer ? lecturerActivity : studentPerformance}>
@@ -102,11 +102,17 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
                     <stop offset="95%" stopColor={isLecturer ? "#a855f7" : "#3b82f6"} stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e293b" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="currentColor" className="text-slate-200 dark:text-slate-800" />
                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} dy={10} />
                 <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#0f172a', borderRadius: '16px', border: '1px solid #1e293b', color: '#fff' }}
+                  contentStyle={{ 
+                    backgroundColor: 'var(--panel-bg)', 
+                    borderRadius: '16px', 
+                    border: '1px solid var(--glass-border)', 
+                    color: 'var(--text-main)' 
+                  }}
+                  itemStyle={{ color: 'var(--text-main)' }}
                 />
                 <Area type="monotone" dataKey="score" stroke={isLecturer ? "#a855f7" : "#3b82f6"} strokeWidth={4} fillOpacity={1} fill="url(#colorScore)" />
               </AreaChart>
@@ -114,16 +120,16 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
           </div>
         </div>
 
-        <div className="glass-dark p-8 rounded-3xl border border-slate-800/50">
-          <h3 className="text-xl font-bold mb-8 text-white">{isLecturer ? "Curriculum Coverage" : "Topic Mastery"}</h3>
+        <div className="glass-dark p-8 rounded-3xl">
+          <h3 className="text-xl font-bold mb-8 dark:text-white text-slate-900">{isLecturer ? "Curriculum Coverage" : "Topic Mastery"}</h3>
           <div className="space-y-8">
             {topicData.map((topic) => (
               <div key={topic.name}>
                 <div className="flex justify-between text-sm mb-3">
-                  <span className="font-bold text-slate-300">{topic.name}</span>
-                  <span className="text-slate-500">{isLecturer ? `${topic.level + 10}% Complete` : `${topic.level}%`}</span>
+                  <span className="font-bold dark:text-slate-300 text-slate-700">{topic.name}</span>
+                  <span className="dark:text-slate-500 text-slate-400">{isLecturer ? `${topic.level + 10}% Complete` : `${topic.level}%`}</span>
                 </div>
-                <div className="w-full bg-slate-900 rounded-full h-3">
+                <div className="w-full bg-slate-200 dark:bg-slate-900 rounded-full h-3">
                   <div 
                     className="h-3 rounded-full transition-all duration-1000" 
                     style={{ 
@@ -137,11 +143,11 @@ const Dashboard: React.FC<DashboardProps> = ({ user }) => {
             ))}
           </div>
           
-          <div className={`mt-12 p-6 rounded-2xl border ${isLecturer ? 'bg-purple-500/10 border-purple-500/20' : 'bg-red-500/10 border-red-500/20'}`}>
-            <p className={`text-xs font-black uppercase tracking-widest mb-2 ${isLecturer ? 'text-purple-400' : 'text-red-400'}`}>
+          <div className={`mt-12 p-6 rounded-2xl border ${isLecturer ? 'bg-purple-500/5 border-purple-500/20' : 'bg-blue-500/5 border-blue-500/20'}`}>
+            <p className={`text-xs font-black uppercase tracking-widest mb-2 ${isLecturer ? 'text-purple-500' : 'text-blue-500'}`}>
               {isLecturer ? 'Instructional Priority' : 'High Priority Focus'}
             </p>
-            <p className="text-sm text-slate-300 leading-relaxed">
+            <p className="text-sm dark:text-slate-400 text-slate-600 leading-relaxed">
               {isLecturer 
                 ? "Students are struggling with Cardiac ADME. Suggest generating a specialized Pathophysiology case study." 
                 : "Pharmacology: ADME cycles in geriatric patients. Revisit module 4."}
